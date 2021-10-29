@@ -1,0 +1,276 @@
+[gd_scene load_steps=17 format=2]
+
+[ext_resource path="res://scenes/game/Player.tscn" type="PackedScene" id=1]
+[ext_resource path="res://fonts/MinimalPixelFont.ttf" type="DynamicFontData" id=2]
+[ext_resource path="res://sprites/UI/button/pressed.png" type="Texture" id=3]
+[ext_resource path="res://addons/Godot-Utilities/Nodes/NinePatchRectTextureButton.gd" type="Script" id=4]
+[ext_resource path="res://sprites/UI/button/disabled.png" type="Texture" id=5]
+[ext_resource path="res://sprites/UI/button/normal.png" type="Texture" id=6]
+[ext_resource path="res://scenes/landing_page/PlayerSelector.gd" type="Script" id=7]
+[ext_resource path="res://addons/Godot-Utilities/Classes/ExTexture.gd" type="Script" id=8]
+
+[sub_resource type="StyleBoxEmpty" id=1]
+
+[sub_resource type="Image" id=9]
+data = {
+"data": PoolByteArray( 0 ),
+"format": "Lum8",
+"height": 1,
+"mipmaps": false,
+"width": 1
+}
+
+[sub_resource type="ImageTexture" id=3]
+image = SubResource( 9 )
+size = Vector2( 1, 1 )
+script = ExtResource( 8 )
+scale = Vector2( 3, 3 )
+
+[sub_resource type="StyleBoxTexture" id=4]
+texture = ExtResource( 6 )
+region_rect = Rect2( 0, 0, 30, 14 )
+margin_left = 4.0
+margin_right = 4.0
+margin_top = 4.0
+margin_bottom = 6.0
+
+[sub_resource type="DynamicFont" id=5]
+size = 32
+font_data = ExtResource( 2 )
+
+[sub_resource type="DynamicFont" id=6]
+size = 32
+font_data = ExtResource( 2 )
+
+[sub_resource type="DynamicFont" id=7]
+size = 32
+extra_spacing_top = -8
+font_data = ExtResource( 2 )
+
+[sub_resource type="DynamicFont" id=8]
+size = 48
+font_data = ExtResource( 2 )
+
+[node name="PlayerSelector" type="PanelContainer"]
+margin_right = 443.0
+margin_bottom = 285.0
+rect_scale = Vector2( 2, 2 )
+custom_styles/panel = SubResource( 1 )
+script = ExtResource( 7 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="NinePatchRect" type="NinePatchRect" parent="."]
+self_modulate = Color( 0, 1, 0.0392157, 1 )
+margin_right = 443.0
+margin_bottom = 285.0
+rect_pivot_offset = Vector2( 515, 55 )
+texture = SubResource( 3 )
+patch_margin_left = 39
+patch_margin_top = 39
+patch_margin_right = 39
+patch_margin_bottom = 39
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+margin_right = 443.0
+margin_bottom = 285.0
+custom_constants/margin_right = 12
+custom_constants/margin_top = 3
+custom_constants/margin_left = 9
+custom_constants/margin_bottom = 11
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer"]
+margin_left = 9.0
+margin_top = 3.0
+margin_right = 431.0
+margin_bottom = 274.0
+custom_constants/separation = 27
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/HBoxContainer"]
+margin_right = 195.0
+margin_bottom = 271.0
+custom_constants/margin_left = 8
+custom_constants/margin_bottom = 8
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/HBoxContainer/MarginContainer"]
+margin_left = 8.0
+margin_right = 195.0
+margin_bottom = 263.0
+alignment = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Control" type="Control" parent="MarginContainer/HBoxContainer/MarginContainer/VBoxContainer"]
+margin_right = 187.5
+margin_bottom = 187.5
+rect_min_size = Vector2( 187.5, 187.5 )
+
+[node name="Player" parent="MarginContainer/HBoxContainer/MarginContainer/VBoxContainer/Control" instance=ExtResource( 1 )]
+position = Vector2( 88.5363, 93.6119 )
+scale = Vector2( 1.5, 1.5 )
+
+[node name="TypeHBoxContainer" type="HBoxContainer" parent="MarginContainer/HBoxContainer/MarginContainer/VBoxContainer"]
+margin_top = 191.0
+margin_right = 187.0
+margin_bottom = 191.0
+alignment = 1
+
+[node name="SpeedSlider" type="HSlider" parent="MarginContainer/HBoxContainer/MarginContainer/VBoxContainer"]
+margin_top = 195.0
+margin_right = 187.0
+margin_bottom = 211.0
+min_value = 0.6
+max_value = 2.0
+step = 0.0
+value = 0.6
+
+[node name="ColorPickerButton" type="ColorPickerButton" parent="MarginContainer/HBoxContainer/MarginContainer/VBoxContainer"]
+margin_top = 215.0
+margin_right = 187.0
+margin_bottom = 239.0
+focus_mode = 0
+custom_styles/hover = SubResource( 4 )
+custom_styles/pressed = SubResource( 4 )
+custom_styles/focus = SubResource( 4 )
+custom_styles/disabled = SubResource( 4 )
+custom_styles/normal = SubResource( 4 )
+edit_alpha = false
+
+[node name="NinePatchRectTextureButton" type="NinePatchRect" parent="MarginContainer/HBoxContainer/MarginContainer/VBoxContainer"]
+margin_top = 243.0
+margin_right = 187.0
+margin_bottom = 263.0
+rect_min_size = Vector2( 0, 20 )
+mouse_filter = 0
+texture = ExtResource( 6 )
+patch_margin_left = 4
+patch_margin_top = 4
+patch_margin_right = 4
+patch_margin_bottom = 4
+script = ExtResource( 4 )
+text = "Randomise"
+text_font = SubResource( 5 )
+text_position_base = -5.0
+text_position_pressed = -4.0
+texture_normal = ExtResource( 6 )
+texture_pressed = ExtResource( 3 )
+texture_hover = ExtResource( 6 )
+texture_disabled = ExtResource( 5 )
+
+[node name="MarginContainer2" type="MarginContainer" parent="MarginContainer/HBoxContainer"]
+margin_left = 222.0
+margin_right = 422.0
+margin_bottom = 271.0
+rect_min_size = Vector2( 200, 0 )
+size_flags_horizontal = 3
+custom_constants/margin_right = 8
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/HBoxContainer/MarginContainer2"]
+margin_right = 192.0
+margin_bottom = 271.0
+size_flags_horizontal = 3
+alignment = 1
+
+[node name="Label" type="Label" parent="MarginContainer/HBoxContainer/MarginContainer2/VBoxContainer"]
+margin_top = 29.0
+margin_right = 192.0
+margin_bottom = 51.0
+custom_fonts/font = SubResource( 6 )
+text = "Username"
+align = 1
+
+[node name="UsernameTextBox" type="LineEdit" parent="MarginContainer/HBoxContainer/MarginContainer2/VBoxContainer"]
+margin_top = 55.0
+margin_right = 192.0
+margin_bottom = 81.0
+focus_mode = 1
+custom_fonts/font = SubResource( 7 )
+text = "O_O"
+align = 1
+context_menu_enabled = false
+clear_button_enabled = true
+caret_blink = true
+caret_blink_speed = 0.5
+
+[node name="Separator" type="Control" parent="MarginContainer/HBoxContainer/MarginContainer2/VBoxContainer"]
+margin_top = 85.0
+margin_right = 192.0
+margin_bottom = 100.522
+rect_min_size = Vector2( 0, 15.522 )
+
+[node name="HostServerButton" type="NinePatchRect" parent="MarginContainer/HBoxContainer/MarginContainer2/VBoxContainer"]
+margin_top = 104.0
+margin_right = 192.0
+margin_bottom = 141.5
+rect_min_size = Vector2( 0, 37.5 )
+mouse_filter = 0
+texture = ExtResource( 6 )
+patch_margin_left = 4
+patch_margin_top = 4
+patch_margin_right = 4
+patch_margin_bottom = 4
+script = ExtResource( 4 )
+text = "Host server"
+text_font = SubResource( 8 )
+text_position_base = -5.0
+text_position_pressed = -2.5
+texture_normal = ExtResource( 6 )
+texture_pressed = ExtResource( 3 )
+texture_hover = ExtResource( 6 )
+texture_disabled = ExtResource( 5 )
+
+[node name="JoinServerButton" type="NinePatchRect" parent="MarginContainer/HBoxContainer/MarginContainer2/VBoxContainer"]
+margin_top = 145.0
+margin_right = 192.0
+margin_bottom = 182.5
+rect_min_size = Vector2( 0, 37.5 )
+mouse_filter = 0
+texture = ExtResource( 6 )
+patch_margin_left = 4
+patch_margin_top = 4
+patch_margin_right = 4
+patch_margin_bottom = 4
+script = ExtResource( 4 )
+text = "Join server"
+text_font = SubResource( 8 )
+text_position_base = -5.0
+text_position_pressed = -2.5
+texture_normal = ExtResource( 6 )
+texture_pressed = ExtResource( 3 )
+texture_hover = ExtResource( 6 )
+texture_disabled = ExtResource( 5 )
+
+[node name="Separator2" type="Control" parent="MarginContainer/HBoxContainer/MarginContainer2/VBoxContainer"]
+margin_top = 186.0
+margin_right = 192.0
+margin_bottom = 201.522
+rect_min_size = Vector2( 0, 15.522 )
+
+[node name="PlaygameButton" type="NinePatchRect" parent="MarginContainer/HBoxContainer/MarginContainer2/VBoxContainer"]
+margin_top = 205.0
+margin_right = 192.0
+margin_bottom = 242.5
+rect_min_size = Vector2( 0, 37.5 )
+mouse_filter = 0
+texture = ExtResource( 6 )
+patch_margin_left = 4
+patch_margin_top = 4
+patch_margin_right = 4
+patch_margin_bottom = 4
+script = ExtResource( 4 )
+text = "Play game"
+text_font = SubResource( 8 )
+text_position_base = -5.0
+text_position_pressed = -2.5
+texture_normal = ExtResource( 6 )
+texture_pressed = ExtResource( 3 )
+texture_hover = ExtResource( 6 )
+texture_disabled = ExtResource( 5 )
+
+[connection signal="gui_input" from="MarginContainer/HBoxContainer/MarginContainer/VBoxContainer/Control" to="." method="_on_Player_gui_input"]
+[connection signal="value_changed" from="MarginContainer/HBoxContainer/MarginContainer/VBoxContainer/SpeedSlider" to="." method="_on_SpeedSlider_value_changed"]
+[connection signal="color_changed" from="MarginContainer/HBoxContainer/MarginContainer/VBoxContainer/ColorPickerButton" to="." method="_on_ColorPickerButton_color_changed"]
+[connection signal="pressed" from="MarginContainer/HBoxContainer/MarginContainer/VBoxContainer/NinePatchRectTextureButton" to="." method="_on_randomise_button_pressed"]
+[connection signal="text_changed" from="MarginContainer/HBoxContainer/MarginContainer2/VBoxContainer/UsernameTextBox" to="." method="_on_UsernameTextBox_text_changed"]

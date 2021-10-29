@@ -1,0 +1,20 @@
+Godot Engine v3.3.2.stable.custom_build.22ffd38ed - https://godotengine.org
+OpenGL ES 3.0 Renderer: AMD Radeon (TM) R9 380 Series (TONGA, DRM 3.40.0, 5.11.0-38-generic, LLVM 11.0.1)
+OpenGL ES Batching: ON
+ 
+**ERROR**: Condition "err" is true. Returned: err
+   At: modules/gdscript/gdscript.cpp:813:load_source_code() - Condition "err" is true. Returned: err
+**ERROR**: Cannot load source code from file 'res://scenes/game/Game.gd'.
+   At: modules/gdscript/gdscript.cpp:2239:load() - Condition "err != OK" is true. Returned: RES()
+**ERROR**: Failed loading resource: res://scenes/game/Game.gd. Make sure resources have been imported by opening the project in the editor at least once.
+   At: core/io/resource_loader.cpp:282:_load() - Condition "found" is true. Returned: RES()
+**ERROR**: res://Game.tscn:3 - Parse Error: [ext_resource] referenced nonexistent resource at: res://scenes/game/Game.gd
+   At: scene/resources/resource_format_text.cpp:440:poll() - res://Game.tscn:3 - Parse Error: [ext_resource] referenced nonexistent resource at: res://scenes/game/Game.gd
+**ERROR**: Failed to load resource 'res://Game.tscn'.
+   At: core/io/resource_loader.cpp:212:load() - Condition "err != OK" is true. Returned: RES()
+**ERROR**: Failed loading resource: res://Game.tscn. Make sure resources have been imported by opening the project in the editor at least once.
+   At: core/io/resource_loader.cpp:282:_load() - Condition "found" is true. Returned: RES()
+**ERROR**: Failed loading scene: res://Game.tscn
+   At: main/main.cpp:1961:start() - Condition "!scene" is true. Returned: false
+**WARNING**: ObjectDB instances leaked at exit (run with --verbose for details).
+   At: core/object.cpp:2132:cleanup() - ObjectDB instances leaked at exit (run with --verbose for details).

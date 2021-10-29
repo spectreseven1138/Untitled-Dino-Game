@@ -1,0 +1,166 @@
+[gd_scene load_steps=13 format=2]
+
+[ext_resource path="res://scenes/game/Game.gd" type="Script" id=1]
+[ext_resource path="res://scenes/landing_page/LandingPage.tscn" type="PackedScene" id=2]
+[ext_resource path="res://sprites/game/background/parallax-mountain-foreground-trees.png" type="Texture" id=3]
+[ext_resource path="res://sprites/game/background/parallax-mountain-bg.png" type="Texture" id=4]
+[ext_resource path="res://sprites/game/background/parallax-mountain-montain-far.png" type="Texture" id=5]
+[ext_resource path="res://sprites/game/background/parallax-mountain-mountains.png" type="Texture" id=6]
+[ext_resource path="res://sprites/game/background/parallax-mountain-trees.png" type="Texture" id=7]
+[ext_resource path="res://scenes/scoreboard/Scoreboard.tscn" type="PackedScene" id=8]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 10, 96 )
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 200.874, 160.291 )
+
+[sub_resource type="Shader" id=3]
+code = "shader_type canvas_item;
+
+// Ranges from 0 to 1 over the course of the transition.
+// We use this to actually animate the shader.
+uniform float progress : hint_range(0, 0.73);
+
+// Size of each diamond, in pixels.
+uniform float diamondPixelSize = 10f;
+
+void fragment() {
+	float xFraction = fract(FRAGCOORD.x / diamondPixelSize);
+	float yFraction = fract(FRAGCOORD.y / diamondPixelSize);
+	float xDistance = abs(xFraction - 0.5);
+	float yDistance = abs(yFraction - 0.5);
+	if (xDistance + yDistance + UV.x + UV.y > progress * 4f) {
+		discard;
+	}
+}"
+
+[sub_resource type="ShaderMaterial" id=4]
+shader = SubResource( 3 )
+shader_param/progress = 0.389
+shader_param/diamondPixelSize = 23.706
+
+[node name="Game" type="Node2D"]
+z_index = -1
+script = ExtResource( 1 )
+
+[node name="Background" type="Node2D" parent="."]
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="Background"]
+offset = Vector2( 0, -1600 )
+scale = Vector2( 1.5, 1.5 )
+transform = Transform2D( 1.5, 0, 0, 1.5, 0, -1600 )
+
+[node name="ParallaxLayer5" type="ParallaxLayer" parent="Background/ParallaxBackground"]
+motion_scale = Vector2( 0.05, 1 )
+motion_mirroring = Vector2( 272, 0 )
+
+[node name="Sprite" type="TextureRect" parent="Background/ParallaxBackground/ParallaxLayer5"]
+margin_right = 1360.0
+margin_bottom = 160.0
+texture = ExtResource( 4 )
+expand = true
+stretch_mode = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ParallaxLayer2" type="ParallaxLayer" parent="Background/ParallaxBackground"]
+motion_scale = Vector2( 0.15, 1 )
+motion_mirroring = Vector2( 544, 0 )
+
+[node name="Sprite" type="TextureRect" parent="Background/ParallaxBackground/ParallaxLayer2"]
+texture = ExtResource( 6 )
+
+[node name="ParallaxLayer3" type="ParallaxLayer" parent="Background/ParallaxBackground"]
+motion_scale = Vector2( 0.25, 1 )
+motion_mirroring = Vector2( 272, 0 )
+
+[node name="Sprite" type="TextureRect" parent="Background/ParallaxBackground/ParallaxLayer3"]
+texture = ExtResource( 5 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="Background/ParallaxBackground"]
+motion_scale = Vector2( 0.8, 1 )
+motion_mirroring = Vector2( 544, 0 )
+
+[node name="Sprite" type="TextureRect" parent="Background/ParallaxBackground/ParallaxLayer"]
+texture = ExtResource( 7 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ParallaxLayer4" type="ParallaxLayer" parent="Background/ParallaxBackground"]
+motion_mirroring = Vector2( 544, 0 )
+
+[node name="Sprite" type="TextureRect" parent="Background/ParallaxBackground/ParallaxLayer4"]
+texture = ExtResource( 3 )
+
+[node name="Players" type="Node2D" parent="."]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2( 193.063, -81.9397 )
+current = true
+zoom = Vector2( 0.2, 0.2 )
+
+[node name="Segments" type="Node2D" parent="."]
+
+[node name="Borders" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Borders"]
+position = Vector2( -7.5, -96 )
+shape = SubResource( 1 )
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Borders"]
+position = Vector2( 393.5, -96 )
+shape = SubResource( 1 )
+
+[node name="GameArea" type="Area2D" parent="."]
+collision_layer = 524288
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GameArea"]
+position = Vector2( 191.13, -134.434 )
+shape = SubResource( 2 )
+
+[node name="FadeTween" type="Tween" parent="."]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Node2D" type="Node2D" parent="CanvasLayer"]
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer/Node2D"]
+visible = false
+material = SubResource( 4 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_right = 1920.0
+margin_bottom = 1080.0
+mouse_filter = 2
+color = Color( 0, 0, 0, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Scoreboard" parent="CanvasLayer" instance=ExtResource( 8 )]
+margin_left = 1482.0
+margin_top = 29.0
+margin_right = -29.9999
+margin_bottom = -712.0
+
+[node name="LandingPage" parent="." instance=ExtResource( 2 )]
+
+[node name="PopupMenu" parent="LandingPage/Control" index="3"]
+items = [ "Join server", null, 0, false, true, 0, 0, null, "", true, "", null, 0, false, true, 3, 0, null, "", false, "Default server", null, 0, false, false, 2, 0, null, "", false, "Custom server", null, 0, false, false, 3, 0, null, "", false ]
+
+[node name="ConfirmationDialog" parent="LandingPage/Control" index="4"]
+visible = false
+
+[node name="LandingPageFadeTween" type="Tween" parent="."]
+
+[connection signal="body_exited" from="GameArea" to="." method="_on_GameArea_body_exited"]
+[connection signal="pressed" from="LandingPage/Control/VSplitContainer/HSplitContainer/PlayerSelector/MarginContainer/HBoxContainer/MarginContainer2/VBoxContainer/PlaygameButton" to="." method="_on_PlaygameButton_pressed"]
+
+[editable path="LandingPage"]
+[editable path="LandingPage/Control/VSplitContainer/HSplitContainer/PlayerSelector"]

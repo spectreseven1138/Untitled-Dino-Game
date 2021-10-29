@@ -1,0 +1,218 @@
+[gd_scene load_steps=30 format=2]
+
+[ext_resource path="res://scenes/game/objects/Upgrade.gd" type="Script" id=1]
+[ext_resource path="res://sprites/game/player/3/tile010.png" type="Texture" id=2]
+[ext_resource path="res://sprites/game/player/3/tile011.png" type="Texture" id=3]
+[ext_resource path="res://sprites/game/player/3/tile012.png" type="Texture" id=4]
+[ext_resource path="res://sprites/game/player/3/tile023.png" type="Texture" id=5]
+[ext_resource path="res://sprites/game/player/3/tile004.png" type="Texture" id=6]
+[ext_resource path="res://sprites/game/player/3/tile006.png" type="Texture" id=7]
+[ext_resource path="res://sprites/game/player/3/tile005.png" type="Texture" id=8]
+[ext_resource path="res://sprites/game/player/3/tile003.png" type="Texture" id=9]
+[ext_resource path="res://sprites/game/player/3/tile007.png" type="Texture" id=10]
+[ext_resource path="res://sprites/game/player/3/tile019.png" type="Texture" id=11]
+[ext_resource path="res://sprites/game/player/3/tile020.png" type="Texture" id=12]
+[ext_resource path="res://sprites/game/player/3/tile021.png" type="Texture" id=13]
+[ext_resource path="res://sprites/game/player/3/tile016.png" type="Texture" id=14]
+[ext_resource path="res://sprites/game/player/3/tile015.png" type="Texture" id=15]
+[ext_resource path="res://sprites/game/player/3/tile014.png" type="Texture" id=16]
+[ext_resource path="res://sprites/game/player/3/tile022.png" type="Texture" id=17]
+[ext_resource path="res://sprites/game/player/3/tile008.png" type="Texture" id=18]
+[ext_resource path="res://sprites/game/player/3/tile009.png" type="Texture" id=19]
+[ext_resource path="res://sprites/game/player/3/tile018.png" type="Texture" id=20]
+[ext_resource path="res://sprites/game/player/dash.png" type="Texture" id=21]
+[ext_resource path="res://fonts/MinimalPixelFont.ttf" type="DynamicFontData" id=22]
+
+[sub_resource type="Shader" id=1]
+code = "shader_type canvas_item;
+
+uniform float contrast = 1.0;
+
+void fragment() {
+	vec4 color = texture(TEXTURE,UV);
+	float grey = (color.r + color.g + color.b) * 0.333;
+	
+	color.rgb = grey * vec3(contrast);
+	COLOR =  color;
+}"
+
+[sub_resource type="ShaderMaterial" id=2]
+shader = SubResource( 1 )
+shader_param/contrast = 1.75
+
+[sub_resource type="SpriteFrames" id=3]
+animations = [ {
+"frames": [ ExtResource( 16 ), ExtResource( 15 ), ExtResource( 14 ) ],
+"loop": false,
+"name": "hurt",
+"speed": 15.0
+}, {
+"frames": [ ExtResource( 20 ), ExtResource( 11 ), ExtResource( 12 ), ExtResource( 13 ), ExtResource( 17 ), ExtResource( 5 ) ],
+"loop": true,
+"name": "run_crouch",
+"speed": 20.0
+}, {
+"frames": [ ExtResource( 9 ), ExtResource( 6 ), ExtResource( 8 ), ExtResource( 7 ), ExtResource( 10 ), ExtResource( 18 ), ExtResource( 19 ) ],
+"loop": true,
+"name": "run",
+"speed": 20.0
+}, {
+"frames": [ ExtResource( 2 ), ExtResource( 3 ), ExtResource( 4 ) ],
+"loop": false,
+"name": "jump",
+"speed": 15.0
+} ]
+
+[sub_resource type="Animation" id=4]
+resource_name = "dash"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = false
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 0.615686, 0.615686, 0.615686, 1 ), Color( 1, 1, 1, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Sprite:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 2, 0.7 ), Vector2( 0.1, 0.7 ) ]
+}
+
+[sub_resource type="DynamicFont" id=5]
+size = 128
+font_data = ExtResource( 22 )
+
+[sub_resource type="DynamicFont" id=6]
+size = 192
+font_data = ExtResource( 22 )
+
+[sub_resource type="DynamicFont" id=7]
+size = 72
+font_data = ExtResource( 22 )
+
+[node name="Upgrade" type="Node2D"]
+script = ExtResource( 1 )
+type = 1
+
+[node name="Icons" type="Node2D" parent="."]
+visible = false
+
+[node name="DASH" type="Node2D" parent="Icons"]
+visible = false
+scale = Vector2( 0.2, 0.2 )
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="Icons/DASH"]
+self_modulate = Color( 0.313726, 1, 0, 1 )
+material = SubResource( 2 )
+position = Vector2( 36.7086, -6.44882 )
+scale = Vector2( 5, 5 )
+frames = SubResource( 3 )
+animation = "run_crouch"
+frame = 3
+playing = true
+
+[node name="Dash" type="Node2D" parent="Icons/DASH/AnimatedSprite"]
+modulate = Color( 0.0313726, 1, 0, 0.454902 )
+
+[node name="Sprite" type="Sprite" parent="Icons/DASH/AnimatedSprite/Dash"]
+position = Vector2( -1.12702, -4.18176 )
+scale = Vector2( 0.249184, 0.7 )
+z_index = -1
+texture = ExtResource( 21 )
+centered = false
+offset = Vector2( -16, 0 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Icons/DASH/AnimatedSprite/Dash"]
+autoplay = "dash"
+playback_speed = 7.0
+anims/dash = SubResource( 4 )
+
+[node name="AIR_JUMP" type="Node2D" parent="Icons"]
+scale = Vector2( 0.2, 0.2 )
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="Icons/AIR_JUMP"]
+self_modulate = Color( 0.313726, 1, 0, 1 )
+material = SubResource( 2 )
+position = Vector2( -26.3855, -5.94604 )
+scale = Vector2( 5, 5 )
+frames = SubResource( 3 )
+animation = "jump"
+frame = 2
+
+[node name="Label" type="Label" parent="Icons/AIR_JUMP"]
+margin_left = 6.41384
+margin_top = -44.5742
+margin_right = 70.4138
+margin_bottom = 41.4258
+custom_fonts/font = SubResource( 5 )
+custom_colors/font_color = Color( 0.247059, 0.784314, 0, 1 )
+text = "+1"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Control" type="Control" parent="CanvasLayer"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Title" type="Label" parent="CanvasLayer/Control"]
+anchor_right = 1.0
+margin_top = 60.0
+margin_bottom = 188.0
+custom_fonts/font = SubResource( 6 )
+text = "+1 Additional air jump"
+align = 1
+percent_visible = 0.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Description" type="Label" parent="CanvasLayer/Control/Title"]
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = 15.1361
+margin_bottom = 79.1361
+custom_fonts/font = SubResource( 7 )
+text = "Jump 1 more time in the air before touching the ground"
+align = 1
+percent_visible = 0.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Control" type="Control" parent="CanvasLayer/Control/Title/Description"]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Position2D" type="Position2D" parent="CanvasLayer/Control/Title/Description/Control"]
+position = Vector2( 0, 83.0609 )
+__meta__ = {
+"_gizmo_extents_": 50.9
+}
+
+[node name="Tween" type="Tween" parent="."]

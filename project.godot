@@ -1,0 +1,151 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=4
+
+_global_script_classes=[ {
+"base": "Reference",
+"class": "ExArray",
+"language": "GDScript",
+"path": "res://addons/Godot-Utilities/Classes/ExArray.gd"
+}, {
+"base": "ImageTexture",
+"class": "ExTexture",
+"language": "GDScript",
+"path": "res://addons/Godot-Utilities/Classes/ExTexture.gd"
+}, {
+"base": "Node2D",
+"class": "Game",
+"language": "GDScript",
+"path": "res://scenes/game/Game.gd"
+}, {
+"base": "NinePatchRect",
+"class": "NinePatchRectTextureButton",
+"language": "GDScript",
+"path": "res://addons/Godot-Utilities/Nodes/NinePatchRectTextureButton.gd"
+}, {
+"base": "KinematicBody2D",
+"class": "Player",
+"language": "GDScript",
+"path": "res://scenes/game/Player.gd"
+}, {
+"base": "Control",
+"class": "PlayerSelector",
+"language": "GDScript",
+"path": "res://scenes/landing_page/PlayerSelector.gd"
+}, {
+"base": "Node2D",
+"class": "Segment",
+"language": "GDScript",
+"path": "res://scenes/game/segments/Segment.gd"
+}, {
+"base": "Node2D",
+"class": "Upgrade",
+"language": "GDScript",
+"path": "res://scenes/game/objects/Upgrade.gd"
+} ]
+_global_script_class_icons={
+"ExArray": "",
+"ExTexture": "",
+"Game": "",
+"NinePatchRectTextureButton": "",
+"Player": "",
+"PlayerSelector": "",
+"Segment": "",
+"Upgrade": ""
+}
+
+[application]
+
+config/name="Dino"
+run/main_scene="res://scenes/game/Game.tscn"
+config/icon="res://icon.png"
+
+[autoload]
+
+GU="*res://addons/Godot-Utilities/Utils.gd"
+Global="*res://scripts/autoload/Global.gd"
+Utils="*res://addons/Godot-Utilities/Utils.gd"
+
+[debug]
+
+gdscript/warnings/unused_argument=false
+gdscript/warnings/return_value_discarded=false
+
+[display]
+
+window/size/width=1920
+window/size/height=1080
+window/size/always_on_top=true
+window/size/test_width=1280
+window/size/test_height=720
+window/stretch/mode="viewport"
+window/stretch/aspect="keep"
+
+[editor_plugins]
+
+enabled=PoolStringArray( "res://addons/Godot-Utilities/plugin.cfg" )
+
+[importer_defaults]
+
+texture={
+"compress/bptc_ldr": 0,
+"compress/hdr_mode": 0,
+"compress/lossy_quality": 0.7,
+"compress/mode": 0,
+"compress/normal_map": 0,
+"detect_3d": true,
+"flags/anisotropic": false,
+"flags/filter": false,
+"flags/mipmaps": false,
+"flags/repeat": 0,
+"flags/srgb": 2,
+"process/HDR_as_SRGB": false,
+"process/fix_alpha_border": true,
+"process/invert_color": false,
+"process/premult_alpha": false,
+"size_limit": 0,
+"stream": false,
+"svg/scale": 1.0
+}
+
+[input]
+
+jump={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":32,"unicode":0,"echo":false,"script":null)
+, Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":16777232,"unicode":0,"echo":false,"script":null)
+ ]
+}
+toggle_scoreboard={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":96,"unicode":0,"echo":false,"script":null)
+ ]
+}
+dash={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":16777218,"unicode":0,"echo":false,"script":null)
+ ]
+}
+
+[layer_names]
+
+2d_physics/layer_1="Players"
+2d_physics/layer_2="Damage"
+2d_physics/layer_20="World"
+
+[physics]
+
+common/enable_pause_aware_picking=true
+
+[rendering]
+
+quality/driver/driver_name="GLES2"
+vram_compression/import_etc=true
+vram_compression/import_etc2=false
+environment/default_environment="res://default_env.tres"
